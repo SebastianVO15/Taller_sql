@@ -167,3 +167,14 @@ delete from departamento;
 select count(*) from departamento;
 select count(*) from municipio;
 select count(*) from homicidios;
+--¿Se modifican otras tablas al eliminar los registros de departamento?
+-- Si la tabla municipio tiene una FOREIGN KEY hacia departamento,
+-- y la tabla homicidios tiene una FOREIGN KEY hacia municipio. Por lo tanto,
+-- eliminar los registros de departamento afecta en cascada tanto a municipio
+-- como a homicidios
+-- Esto se probo de dos formas distintas:
+-- 1) Forma manual: se eliminaron explicitamente los registros en orden de
+--    hijo a padre (homicidios luego municipio y luego departamento)
+-- 2) Forma automatica: se modificaron ambas FOREIGN KEY con ALTER TABLE
+--    para agregar ON DELETE CASCADE, de forma que un unico DELETE sobre
+--    departamento propaga el borrado automaticamente a las tablas hijas
