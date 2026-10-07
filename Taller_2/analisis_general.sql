@@ -40,14 +40,27 @@ ORDER BY c.nombre;
 -- reemplazan por 0 (no estudio) y los 99 (sin informacion) se excluyen
 -- para no sesgar el promedio.
 SELECT
-    CASE ei.sexo WHEN 1 THEN 'Hombre' WHEN 2 THEN 'Mujer' END AS sexo,
+    CASE
+        WHEN ei.sexo = 1 THEN 'Hombre'
+        WHEN ei.sexo = 2 THEN 'Mujer'
+    END AS sexo,
+
     ROUND(AVG(ei.edad), 2) AS promedio_edad,
-    ROUND(AVG(CASE WHEN ei.testudio = -1 THEN 0 ELSE ei.testudio END), 2)
-        AS promedio_tiempo_estudio
+
+    ROUND(
+        AVG(
+            CASE
+                WHEN ei.testudio = -1 THEN 0
+                WHEN ei.testudio = 99 THEN NULL
+                ELSE ei.testudio
+            END
+        ),
+        2
+    ) AS promedio_tiempo_estudio
+
 FROM encuesta_integrante AS ei
 WHERE ei.sexo IN (1, 2)
   AND ei.edad BETWEEN 12 AND 98
-  AND ei.testudio <> 99
 GROUP BY ei.sexo;
 
 -- INTERPRETACION: (completar. Ej.: los hombres/mujeres tienen en
