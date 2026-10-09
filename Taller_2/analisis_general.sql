@@ -28,9 +28,17 @@ INNER JOIN ciudad   AS c ON c.id = v.id_ciudad
 GROUP BY c.nombre
 ORDER BY c.nombre;
 
--- INTERPRETACION: (completar con los resultados. Ej.: la ciudad con mas
--- hogares es ___, lo que es coherente con su tamano poblacional; el
--- cociente hogares/viviendas muestra si hay hacinamiento de hogares.)
+-- INTERPRETACION:  Solo 5 de las 9 ciudades de la encuesta tienen hogares
+-- con vivienda y ciudad asociadas: Bogota (2757 viviendas, 14980
+-- hogares), Medellin (554, 674), Ibague (438, 531), Cali (578, 580) y
+-- Barrancabermeja (432, 446). Bogota concentra el 87 % de los 17211
+-- hogares, por lo que cualquier resultado agregado refleja sobre todo a
+-- la capital. En las otras ciudades hay entre 1,0 y 1,2 hogares por
+-- vivienda, mientras que en Bogota la razon es de 5,4. Una diferencia tan
+-- grande no parece hacinamiento real: es mas probable que los
+-- identificadores de vivienda de Bogota se repitan entre los cuatro
+-- anios de la encuesta, de modo que una misma vivienda acumula hogares
+-- de distintos levantamientos.
 
 
 -- ---------------------------------------------------------------------
@@ -63,9 +71,13 @@ WHERE ei.sexo IN (1, 2)
   AND ei.edad BETWEEN 12 AND 98
 GROUP BY ei.sexo;
 
--- INTERPRETACION: (completar. Ej.: los hombres/mujeres tienen en
--- promedio ___ anios de estudio frente a ___, lo que indica una brecha
--- educativa de ___ anios.)
+-- INTERPRETACION: La edad promedio de la PET es practicamente igual
+-- entre sexos (30,70 anios en hombres y 30,36 en mujeres), lo que
+-- muestra una poblacion joven. En educacion si hay brecha: los hombres
+-- tienen en promedio 6,31 anios de estudio frente a 5,35 de las mujeres,
+-- casi un anio menos (0,96). En ambos casos el promedio apenas supera la
+-- primaria, coherente con la Colombia urbana de finales de los sesenta.
+-- La muestra tiene mas mujeres (32150) que hombres (26637).
 
 
 -- ---------------------------------------------------------------------
@@ -83,12 +95,15 @@ WHERE ei.sexo IN (1, 2)
   AND ei.edad BETWEEN 12 AND 98
 GROUP BY ei.sexo;
 
--- INTERPRETACION: (completar. Ej.: la alfabetizacion es de ___% en
--- hombres y ___% en mujeres; el porcentaje universitario es bajo en
--- ambos sexos, lo cual es esperable para la Colombia de 1967-1970.)
-
-
-
+-- INTERPRETACION: La alfabetizacion es alta en ambos sexos, pero mayor
+-- en hombres (96,35 %) que en mujeres (91,38 %), una brecha de 5 puntos
+-- porcentuales. El grado universitario es muy escaso: 3,60 % de los
+-- hombres y 1,06 % de las mujeres, es decir, los hombres tienen 3,4
+-- veces mas probabilidad de tenerlo. La brecha de genero es entonces
+-- mas marcada en la educacion superior que en la basica. Como AVG ignora
+-- los NULL, las 792 personas sin dato de grado universitario no entran
+-- en ese porcentaje. Ademas hay 47 personas con grado universitario que
+-- figuran como no alfabetas, lo que es otra inconsistencia de la base.
 
 
 
