@@ -26,9 +26,16 @@ FROM encuesta AS e
 GROUP BY e.anio
 ORDER BY e.anio;
 
--- INTERPRETACION: (completar. Ej.: el ingreso promedio paso de ___ en
--- 1967 a ___ en 1970, una variacion de ___ %, consistente con la
--- inflacion/crecimiento de la epoca.)
+-- INTERPRETACION: El ingreso familiar promedio fue de 2653,63 en 1967,
+-- 3693,56 en 1968, 3666,89 en 1969 y 3353,94 en 1970. Sube 39 % entre
+-- 1967 y 1968, se mantiene en 1969 y cae 9 % en 1970; frente a 1967 el
+-- ultimo anio queda 26 % por encima. Estos valores deben leerse con
+-- cautela por tres razones: (1) el maximo de la variable es 99999 en
+-- todos los anios, que parece un codigo de "sin informacion" no
+-- documentado en el diccionario y que infla el promedio; (2) hay muchos
+-- ingresos en cero, sobre todo en 1967 (605 de 6200 encuestas), que lo
+-- reducen; y (3) las ciudades encuestadas cambian cada anio, asi que la
+-- serie no compara la misma poblacion.
 
 
 -- ---------------------------------------------------------------------
@@ -49,8 +56,13 @@ WHERE ei.edad BETWEEN 12 AND 98
 GROUP BY c.nombre
 ORDER BY tasa_ocupacion DESC;
 
--- INTERPRETACION: (completar. Ej.: ___ tiene la mayor tasa de ocupacion
--- (___ %) y ___ la menor (___ %).)
+-- INTERPRETACION: Bogota tiene la mayor tasa de ocupacion (46,43 %),
+-- seguida de Ibague (40,37 %), Cali (38,52 %), Barrancabermeja (38,18 %)
+-- y Medellin (37,89 %). En todas las ciudades menos de la mitad de la
+-- poblacion en edad de trabajar esta ocupada, lo que se explica por la
+-- alta inactividad (estudiantes y personas dedicadas al hogar). Bogota
+-- se separa del resto por unos 6 a 8 puntos porcentuales, coherente con
+-- un mercado laboral mas grande y diversificado en la capital.
 
 
 -- ---------------------------------------------------------------------
@@ -73,8 +85,14 @@ WHERE ei.edad BETWEEN 12 AND 98
 GROUP BY e.anio
 ORDER BY e.anio;
 
--- INTERPRETACION: (completar. Ej.: el desempleo paso de ___ % a ___ %
--- entre 1967 y 1970; el subempleo es ___ .)
+-- INTERPRETACION: Los tres porcentajes suman 100 % en cada anio. Los
+-- ocupados pasan de 86,01 % de la PEA en 1967 y 86,37 % en 1968 a
+-- 91,34 % en 1969 y 91,08 % en 1970. El desempleo baja de 12,69 % en
+-- 1967 a 7,21 % en 1969 y sube levemente a 8,07 % en 1970, una reduccion
+-- de 4,6 puntos en el periodo. El subempleo es marginal en todos los
+-- anios (entre 0,85 % y 1,76 %). La mejora debe tomarse con cuidado:
+-- desde 1969 la muestra es casi solo Bogota, que tiene menor desempleo,
+-- asi que parte de la caida se debe al cambio de ciudades encuestadas.
 
 
 -- ---------------------------------------------------------------------
@@ -103,9 +121,16 @@ WHERE ei.edad BETWEEN 12 AND 98
 GROUP BY c.nombre, e.anio
 ORDER BY c.nombre, e.anio;
 
--- INTERPRETACION: (completar. Ej.: ___ presenta el mayor desempleo en
--- ___; la TGO ronda ___, es decir, ___ de cada 100 personas en edad de
--- trabajar participa en el mercado laboral.)
+-- INTERPRETACION: Solo hay 9 combinaciones ciudad-anio con datos, y
+-- Bogota es la unica ciudad con los cuatro anios. El mayor desempleo se
+-- observa en Cali en 1967 (TDS de 0,1577), seguido de Barrancabermeja en
+-- 1967 (0,1477) y Medellin en 1968 (0,1462); el menor es el de Bogota en
+-- 1969 (0,0712). La TGO esta entre 0,43 y 0,53: en Bogota unas 52 de
+-- cada 100 personas en edad de trabajar participan en el mercado
+-- laboral, frente a 43 a 47 en las demas ciudades. Bogota tambien tiene
+-- la mayor TOC (0,45 a 0,48). En Bogota el desempleo cae de 0,1233 en
+-- 1967 a 0,0807 en 1970, y en Barrancabermeja de 0,1477 a 0,0839 entre
+-- 1967 y 1969. La TSE no supera 0,022 en ningun caso.
 
 
 -- ---------------------------------------------------------------------
@@ -120,10 +145,7 @@ INNER JOIN departamento AS d ON d.id = c.id_departamento
 GROUP BY d.nombre
 ORDER BY num_ciudades DESC;
 
--- INTERPRETACION: En general NO tiene mucho sentido. La encuesta solo
--- cubre las principales ciudades, casi una por departamento, por lo que
--- agrupar por departamento replica el resultado por ciudad (la excepcion
--- seria un departamento con varias ciudades, p. ej. Santander con
--- Bucaramanga y Barrancabermeja). Ademas, la muestra es urbana y no
--- representa al resto del departamento (zonas rurales y municipios
--- pequenos), asi que la tasa departamental seria enganosa.
+-- En la practica Bucaramanga no tiene encuestas en la base, por lo que
+-- incluso Santander queda representado por una sola ciudad
+-- (Barrancabermeja) y la agrupacion por departamento no aporta nada
+-- distinto a la agrupacion por ciudad.
