@@ -28,7 +28,11 @@ GROUP BY e.id, e.num_personas
 HAVING COUNT(ei.id) > e.num_personas
 ORDER BY e.id;
 
--- INTERPRETACION: (completar. Ej.: se encontraron ___ encuestas en 1967
--- con mas entrevistados que los reportados, es decir ___ % del total del
--- anio. Esto muestra que num_personas no es confiable y deberia
--- calcularse a partir de encuesta_integrante en lugar de almacenarse.)
+-- INTERPRETACION: En 1967 se encontraron 1403 encuestas con mas
+-- integrantes entrevistados que los reportados en num_personas, es decir
+-- el 22,6 % de las 6200 encuestas del anio. La diferencia llega a ser de
+-- hasta 13 personas. Esto muestra que num_personas no es confiable: es
+-- un dato redundante que se guarda aparte en lugar de calcularse, y
+-- nada obliga a que coincida con las filas de encuesta_integrante. En
+-- un buen disenio ese campo no se almacenaria, sino que se obtendria
+-- con un COUNT sobre encuesta_integrante.
