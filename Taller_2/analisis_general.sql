@@ -1,3 +1,4 @@
+--Sebastián Vargas Otero - 202323722 Pablo Sarmiento - 202321369 Daniel Lizarazo - 202122825
 -- =====================================================================
 -- Taller 2 - Consultas | Empleo/Desempleo CEDE (1967-1970)
 -- Archivo: analisis_general.sql
